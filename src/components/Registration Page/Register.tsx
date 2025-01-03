@@ -37,7 +37,7 @@ const RegistrationPage: React.FC = () => {
         setError(null);
 
         try {
-            const response = await fetch('http://localhost:8081/api/v1/customer/', {
+            const response = await fetch('http://localhost:8081/api/v1/customer/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -56,7 +56,7 @@ const RegistrationPage: React.FC = () => {
                 const data = await response.json();
                 setSuccess('Registration successful!');
                 console.log('Server response:', data);
-                navigate('/success');
+                navigate('/');
             } else {
                 const errorData = await response.json();
                 setError(errorData.message || 'Registration failed');
