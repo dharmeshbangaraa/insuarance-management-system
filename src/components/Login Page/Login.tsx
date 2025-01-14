@@ -47,7 +47,7 @@ const LoginPage: React.FC = () => {
                 if (response.ok) {
                     const data = await response.json();
                     setSuccess('Login successful!');
-                    console.log('Server response:', data);
+                    sessionStorage.setItem("userData", JSON.stringify(data));
                     navigate('/home');
                 } else {
                     const errorData = await response.json();

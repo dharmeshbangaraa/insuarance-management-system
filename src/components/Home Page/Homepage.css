@@ -16,10 +16,30 @@ body {
   header {
     background-color: #ffffff;
     padding: 16px;
-    text-align: center;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     font-size: 24px;
+    display: flex;
+    justify-content: space-between;
     font-weight: bold;
+  }
+
+  .links {
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 13px;
+    padding: 5px;
+  }
+
+  .link {
+    display: flex;
+    font-weight: lighter;
+    margin: 5%;
+  }
+
+  .link:hover {
+    text-decoration: underline;
+    font-weight: bold;
+    cursor: pointer;
   }
   
   /* Policy List */

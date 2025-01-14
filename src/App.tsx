@@ -4,6 +4,7 @@ import './App.css'
 import LoginPage from './components/Login Page/Login';
 import Homepage from './components/Home Page/Homepage';
 import RegistrationPage from './components/Registration Page/Register';
+import MyProfile from './components/My Profile/MyProfile';
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
             <Route path="/register" element={<RegistrationPage />} />
             <Route path="/" element={<LoginPage/>} />
             <Route path="/home" element={<Homepage/>} />
+            <Route path="/myprofile" element={<MyProfile/>} />
         </Routes>
     </Router>
 );

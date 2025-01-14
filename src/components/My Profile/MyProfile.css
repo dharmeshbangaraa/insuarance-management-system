@@ -1,0 +1,120 @@
+/* Container Layout */
+.profile-container {
+    display: flex;
+    gap: 20px;
+    padding: 24px;
+  }
+  
+  /* Sidebar */
+  .profile-sidebar {
+    width: 25%;
+    background-color: #f9f9f9;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .sidebar-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+  
+  .options-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .option-item {
+    padding: 10px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .option-item:hover {
+    background-color: #e0e7ff;
+  }
+  
+  .active-option {
+    background-color: #3b82f6;
+    color: white;
+  }
+  
+  /* Details Section */
+  .profile-details {
+    flex-grow: 1;
+    background-color: white;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .section-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+  
+  /* Forms */
+  .form-label {
+    display: block;
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+  
+  .form-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    margin-top: 4px;
+    transition: border-color 0.3s;
+  }
+  
+  .form-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+  }
+  
+  .form-button {
+    background-color: #3b82f6;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 16px;
+    transition: background-color 0.3s;
+  }
+  
+  .form-button:hover {
+    background-color: #2563eb;
+  }
+
+  /* Policy List */
+  .policy-list {
+    padding: 24px;
+  }
+
+  .policy-card {
+    width: auto;
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    margin-bottom: 2%;
+    transition: transform 0.2s;
+  }
+
+ .policy-card button.claim-btn {
+    background-color: green;
+    color: white;
+}
+
+.policy-card button.claim-btn:hover {
+    background-color: rgb(8, 192, 8);
+}
+  

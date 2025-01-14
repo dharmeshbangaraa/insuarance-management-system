@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Homepage.css'
 
 type Policy = {
@@ -68,16 +69,43 @@ type Policy = {
       </div>
     );
   };
+
+ 
   
-  const Homepage: React.FC = () => (
+  const Homepage: React.FC = () => {
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+      console.log("Logging out...");
+      sessionStorage.clear();
+      navigate("/");
+    }
+
+    const handleProfile = () => {
+      console.log("my profile...");
+      navigate("/myprofile");
+    }
+    
+    return (
     <div className="app-container font-sans bg-gray-100 min-h-screen">
-      <header className="bg-white shadow p-4 text-center text-2xl font-bold">
-        Insurance policies available
+      <header className="bg-white shadow p-4 text-2xl font-bold">
+        <div>
+          ABC Insurance
+        </div>
+        <div className="links">
+          <div className="link" onClick={handleProfile}>
+            Profile
+          </div>
+          <div className="link" onClick={handleLogout}>
+            Logout
+          </div>
+        </div>
       </header>
       <main className="p-6">
         <PolicyList />
       </main>
     </div>
   );
+};
   
   export default Homepage;

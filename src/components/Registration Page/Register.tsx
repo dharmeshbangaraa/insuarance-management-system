@@ -97,6 +97,7 @@ const RegistrationPage: React.FC = () => {
                     <input
                         type="text"
                         id="contactNumber"
+                        maxLength={10}
                         value={contactNumber}
                         onChange={(e) => setContactNumber(e.target.value)}
                         className="input"
