@@ -6,6 +6,7 @@ type UserDetails = {
     id: number;
     name: string;
     email: string;
+    password: string;
   };
 
   type Policy = {
@@ -26,7 +27,7 @@ type UserDetails = {
     if (storedUser) {
       const parsedData = JSON.parse(storedUser);
       console.log(parsedData);
-      return {id: parsedData.id, name: parsedData.firstName, email: parsedData.email};
+      return {id: parsedData.id, name: parsedData.firstName, email: parsedData.email, password: parsedData.password};
     }
     return null;
   };
@@ -95,17 +96,69 @@ type UserDetails = {
 const MyProfile: React.FC = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<UserDetails | null>(null);
-
+  const [currentPassword, setCurrentPassword] = useState<string>("");
+  const [newPassword, setNewPassword] = useState<string>("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState<string>("");
   const [selectedOption, setSelectedOption] = useState<string>("");
-
   const options = ["My Policies","Edit Name", "Change Password", "Update Contact Info"];
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
 
-  // Function to load user details from session storage
   useEffect(() => {
-    // Load user details only once when the component mounts
     const userDetails = loadUserDetails();
     setUser(userDetails);
-  }, []); // Empty dependency array ensures this runs only once
+  }, []); 
+
+  const handlePasswordChange = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if(!currentPassword || !newPassword || !confirmNewPassword) {
+      setError("All Fields are required!");
+      setSuccess(null);
+      return;
+    }
+
+    if(currentPassword.length < 8 || newPassword.length < 8 || confirmNewPassword.length < 8) {
+      setError("Password must be atleast 8 characters");
+      setSuccess(null);
+      return;
+    }
+
+    if(currentPassword !== user?.password) {
+      setError("Current password does not match");
+      setSuccess(null);
+      return;
+    }
+
+    if(newPassword !== confirmNewPassword) {
+      setError("Passwords doesn not match");
+      setSuccess(null);
+      return;
+    }
+
+    setError(null);
+    
+    try{
+      const response = await fetch(`http://localhost:8081/api/v1/customer/updatePassword?userId=${user.id}&updatedPassword=${confirmNewPassword}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if(response.ok) {
+        setSuccess('Password changed successful!');
+        navigate('/');
+      }
+    }
+    catch(err) {
+      setError('An error occurred while sending the request');
+      setSuccess(null);
+    }
+
+
+
+  };
 
   const renderDetails = () => {
     switch (selectedOption) {
@@ -140,12 +193,14 @@ const MyProfile: React.FC = () => {
         return (
           <div>
             <h3 className="section-title">Change Password</h3>
-            <form>
+            <form onSubmit={handlePasswordChange}>
               <label className="form-label">
                 Current Password:
                 <input
                   type="password"
                   className="form-input"
+                  value={currentPassword}
+                  onChange={(e) => setCurrentPassword(e.target.value)}
                   placeholder="Enter current password"
                 />
               </label>
@@ -154,6 +209,8 @@ const MyProfile: React.FC = () => {
                 <input
                   type="password"
                   className="form-input"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
                   placeholder="Enter new password"
                 />
               </label>
@@ -162,9 +219,13 @@ const MyProfile: React.FC = () => {
                 <input
                   type="password"
                   className="form-input"
+                  value={confirmNewPassword }
+                  onChange={(e) => setConfirmNewPassword(e.target.value)}
                   placeholder="Confirm new password"
                 />
               </label>
+              {error && <p className="error">{error}</p>}
+              {success && <p className="success">{success}</p>}
               <button type="submit" className="form-button">
                 Save
               </button>
